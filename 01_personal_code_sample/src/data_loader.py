@@ -80,12 +80,14 @@ def clean_campaign_data(dataframe: pd.DataFrame) -> pd.DataFrame:
         if column in cleaned.columns:
             cleaned[column] = pd.to_numeric(cleaned[column], errors="coerce")
 
-    cleaned[metric_columns] = cleaned[metric_columns].fillna(
-        cleaned[metric_columns].median(numeric_only=True)
-    )
+        present_metrics = [col for col in metric_columns if col in cleaned.columns]
+    if present_metrics:
+        cleaned[present_metrics] = cleaned[present_metrics].fillna(
+            cleaned[present_metrics].median(numeric_only=True)
+        )
 
     # Accept both 0-1 and 0-100 input scales. Convert 0-100 values to 0-1.
-    for column in metric_columns:
+    for column in present_metrics:
         if cleaned[column].max() > 1.0:
             cleaned[column] = cleaned[column] / 100.0
 
