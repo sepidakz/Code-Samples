@@ -80,7 +80,7 @@ def clean_campaign_data(dataframe: pd.DataFrame) -> pd.DataFrame:
         if column in cleaned.columns:
             cleaned[column] = pd.to_numeric(cleaned[column], errors="coerce")
 
-        present_metrics = [col for col in metric_columns if col in cleaned.columns]
+    present_metrics = [col for col in metric_columns if col in cleaned.columns]
     if present_metrics:
         cleaned[present_metrics] = cleaned[present_metrics].fillna(
             cleaned[present_metrics].median(numeric_only=True)
