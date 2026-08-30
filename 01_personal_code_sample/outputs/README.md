@@ -1,13 +1,12 @@
-# Data
+# Outputs
 
-`PredictPro_Campaign_Dataset.csv` — a small demonstration fixture of five
-speculative campaign records, each with a text description and three
-invented metrics (empathy index, planetary impact, ethical resonance).
+Generated artefacts. Everything here is produced by running:
 
-The metrics are fictional by design: the source thesis project modelled
-imagined future scenarios rather than measured outcomes. The file exists
-to exercise the loading, validation and scoring pipeline, not to support
-analysis.
+    cd ../src
+    python main.py
 
-Metric values are stored on a 0–100 scale; `data_loader.py` detects this
-and converts to 0–1 automatically.
+- `recommendations.csv` — ranked campaigns with component scores
+- `recommendation_scores.png` — final score bar chart
+- `similarity_heatmap.png` — pairwise cosine similarity
+
+These are committed so the results are visible without running the code.
