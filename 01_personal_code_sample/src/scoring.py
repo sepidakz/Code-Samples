@@ -98,10 +98,13 @@ def combine_scores(
     if not 0.0 <= semantic_weight <= 1.0:
         raise ValueError("semantic_weight must be between 0 and 1.")
 
-    normalized_similarity = min_max_normalize(semantic_similarity)
+        normalized_similarity = min_max_normalize(semantic_similarity)
+    normalized_speculative = min_max_normalize(
+        speculative_scores.to_numpy(dtype=float)
+    )
     speculative_weight = 1.0 - semantic_weight
 
     return (
         semantic_weight * normalized_similarity
-        + speculative_weight * speculative_scores.to_numpy(dtype=float)
+        + speculative_weight * normalized_speculative
     )
